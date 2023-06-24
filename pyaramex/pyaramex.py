@@ -8,6 +8,7 @@ from .schemas import(
     TrackShipment,
 )
 
+from .utils import validate_payload
 
 class Aramex:
 
@@ -22,24 +23,18 @@ class Aramex:
     def create_shipment(self, payload: dict) -> Response:
         raise NotImplementedError
 
+    @validate_payload
     def track_shipment(self, payload: dict) -> Response:
-        try:
-            payload = TrackShipment(**payload)
-        except ValidationError as e:
-            return e.errors()
-        
+        payload = TrackShipment(**payload)
         response = requests.post(
             url=self.config.TrackShipment,
             data=payload.dict(),
         )
         return response
 
+    @validate_payload
     def print_label(self, payload: dict) -> Response:
-        try:
-            payload = PrintLabel(**payload)
-        except ValidationError as e:
-            return e.errors()
-        
+        payload = PrintLabel(**payload)        
         response = requests.post(
             url=self.config.PrintLabel,
             data=payload.dict(),
