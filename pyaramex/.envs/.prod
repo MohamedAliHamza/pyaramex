@@ -1,0 +1,5 @@
+CreateShipment=https://ws.aramex.net/ShippingAPI.V2/Shipping/Service_1_0.svc/xml/CreateShipments
+
+TrackShipment=https://ws.aramex.net/ShippingAPI.V2/Tracking/Service_1_0.svc/json/TrackShipments
+
+PrintLabel=https://ws.aramex.net/ShippingAPI.V2/Shipping/Service_1_0.svc/json/PrintLabel
