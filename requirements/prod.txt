@@ -1,1 +1,5 @@
 -r base.txt
+
+wheel==0.40.0
+setuptools==68.0.0
+twine==4.0.2
