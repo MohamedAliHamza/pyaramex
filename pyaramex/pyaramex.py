@@ -5,6 +5,7 @@ from pydantic import ValidationError
 from .settings import URLSettings, Environment
 from .schemas import(
     PrintLabel,
+    TrackShipment,
 )
 
 
@@ -18,18 +19,27 @@ class Aramex:
         else:
             raise ValueError("env must be either dev or prod")
 
-    def create_shipment(self, payload) -> Response:
+    def create_shipment(self, payload: dict) -> Response:
         raise NotImplementedError
 
-    def track_shipment(self, payload) -> Response:
-        raise NotImplementedError
+    def track_shipment(self, payload: dict) -> Response:
+        try:
+            payload = TrackShipment(**payload)
+        except ValidationError as e:
+            return e.errors()
+        
+        response = requests.post(
+            url=self.config.TrackShipment,
+            data=payload.dict(),
+        )
+        return response
 
     def print_label(self, payload: dict) -> Response:
         try:
             payload = PrintLabel(**payload)
         except ValidationError as e:
             return e.errors()
-
+        
         response = requests.post(
             url=self.config.PrintLabel,
             data=payload.dict(),
