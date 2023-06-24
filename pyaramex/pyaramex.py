@@ -27,7 +27,8 @@ class Aramex:
         payload = TrackShipment(**payload)
         response = requests.post(
             url=self.config.TrackShipment,
-            data=payload.dict(),
+            json=payload.dict(),
+            headers={"Content-Type": "application/json", "Accept": "application/json"},
         )
         return response
 
@@ -36,6 +37,7 @@ class Aramex:
         payload = PrintLabel(**payload)        
         response = requests.post(
             url=self.config.PrintLabel,
-            data=payload.dict(),
+            json=payload.dict(),
+            headers={"Content-Type": "application/json", "Accept": "application/json"},
         )
         return response
