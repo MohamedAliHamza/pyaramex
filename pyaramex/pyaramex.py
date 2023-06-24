@@ -1,14 +1,13 @@
 import requests
 from requests.models import Response
-from pydantic import ValidationError
 
 from .settings import URLSettings, Environment
+from .utils import validate_payload
 from .schemas import(
     PrintLabel,
     TrackShipment,
 )
 
-from .utils import validate_payload
 
 class Aramex:
 
